@@ -19,8 +19,30 @@ japanese = [["ichi", "one", 1], ["ni", "two", 2], ["san", "three", 3], ["shi", "
            ["roku", "six", 6], ["shichi", "seven", 7], ["hachi", "eight", 8], ["ku", "nine", 9], ["juu", "ten", 10]]
 
 # Setup some responses we can randomly choose between
-correct_responses = ["✔ Correct!", "✔ Very good!", "✔ Good work.", "✔ Nice."]
-incorrect_responses = ["❌ Incorrect!", "❌ Wrong answer."]
+correct_responses = ["Correct!", "Very good!", "Good work.", "Nice."]
+incorrect_responses = ["Incorrect!", "Wrong answer."]
+
+# Setup some special characters that we can use to format and colour text
+# See: https://stackoverflow.com/questions/287871/how-to-print-colored-text-in-python
+class text_colors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+# These functions help with formatting and colouring text
+def make_bold(text):
+    return text_colors.BOLD + text + text_colors.ENDC
+
+def make_green(text):
+    return text_colors.OKGREEN + text + text_colors.ENDC
+
+def make_red(text):
+    return text_colors.FAIL + text + text_colors.ENDC
 
 # This function chooses a random response from the list it is given
 def get_random_response(responses):
@@ -31,9 +53,9 @@ def score_question(answer, number):
     if answer == number[1] or answer == str(number[2]):
         global score_counter
         score_counter = score_counter + point_value
-        return "{} + {} points\n".format(get_random_response(correct_responses), point_value)
+        return "{} + {} points\n".format(make_green("✔ ") + make_bold(get_random_response(correct_responses)), point_value)
     else:
-        return "{}\nCorrect answer is: {}\n".format(get_random_response(incorrect_responses), number[1])
+        return "{}\nCorrect answer is: {}\n".format(make_red("❌ ") + make_bold(get_random_response(incorrect_responses)), number[1])
 
 # This function judges the score and gives the player feedback
 def judge_score():
@@ -77,7 +99,7 @@ while keep_playing:
 
     # Loop through all the avaliable numbers
     for number in shuffled_numbers:
-        answer = input("What number does '{}' stand for in English? ".format(number[0]))
+        answer = input("What number does '{}' stand for in English? ".format(make_bold(number[0])))
         print(score_question(answer, number))
 
     # Game finished
