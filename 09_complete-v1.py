@@ -1,7 +1,7 @@
-"""Component 3 of Chinese and Japanese quiz
-randomly generate 10 questions
+"""Full program version 1 of Chinese and Japanese quiz
+Assemble all components together
 Created by Zach Wain
-3/08/2020
+3/09/2020
 """
 
 import random
