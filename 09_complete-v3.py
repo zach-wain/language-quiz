@@ -1,4 +1,4 @@
-"""Full program version 2 of Chinese and Japanese quiz
+"""Full program version 3 of Chinese and Japanese quiz
 Assemble all components together
 Created by Zach Wain
 5/09/2020
@@ -19,8 +19,8 @@ japanese = [["ichi", "one", 1], ["ni", "two", 2], ["san", "three", 3], ["shi", "
            ["roku", "six", 6], ["shichi", "seven", 7], ["hachi", "eight", 8], ["ku", "nine", 9], ["juu", "ten", 10]]
 
 # Setup some responses we can randomly choose between
-correct_responses = ["Correct!", "Very good!", "Good work.", "Nice."]
-incorrect_responses = ["Incorrect!", "Wrong answer."]
+correct_responses = ["✔ Correct!", "✔ Very good!", "✔ Good work.", "✔ Nice."]
+incorrect_responses = ["❌ Incorrect!", "❌ Wrong answer."]
 
 # This function chooses a random response from the list it is given
 def get_random_response(responses):
@@ -33,7 +33,7 @@ def score_question(answer, number):
         score_counter = score_counter + point_value
         return "{} + {} points\n".format(get_random_response(correct_responses), point_value)
     else:
-        return "{}\n Correct answer is: {}\n".format(get_random_response(incorrect_responses), number[1])
+        return "{}\nCorrect answer is: {}\n".format(get_random_response(incorrect_responses), number[1])
 
 # This function judges the score and gives the player feedback
 def judge_score():
@@ -54,13 +54,21 @@ def ask_for_decision(question, positive_answer):
 # Main loop
 while keep_playing:
     # start main game
+    quiz_numbers = None
+    print("+------------------------------------------+")
+    print("| Welcome to the Chinese and Japanese quiz |")
+    print("+------------------------------------------+")
     quiz_type = input("Would you like to play a Chinese quiz or a Japanese quiz? ")
-    if quiz_type == "Chinese" or quiz_type == "chinese":
-        quiz_numbers = chinese
-    elif quiz_type == "Japanese" or quiz_type == "japanese":
-        quiz_numbers = japanese
-    else:
-        print("Please select either Japanese or Chinese")
+
+    while quiz_numbers == None:
+        if quiz_type == "Chinese" or quiz_type == "chinese":
+            quiz_numbers = chinese
+        elif quiz_type == "Japanese" or quiz_type == "japanese":
+            quiz_numbers = japanese
+        else:
+            print("Please select either Japanese or Chinese")
+
+    print("You've chosen to play in {}. You may answer questions by typing the name or digits of the equivalent english number.\n".format(quiz_type))
 
     # Make a shuffled copy of our master number list
     shuffled_numbers = quiz_numbers.copy()
@@ -69,7 +77,7 @@ while keep_playing:
 
     # Loop through all the avaliable numbers
     for number in shuffled_numbers:
-        answer = input("What number does {} stand for in English? ".format(number[0]))
+        answer = input("What number does '{}' stand for in English? ".format(number[0]))
         print(score_question(answer, number))
 
     # Game finished
@@ -83,4 +91,4 @@ while keep_playing:
 
 
 # bug: score doesnt reset when game is replayed. needs to be fixed in version 3
-# bug: getting chinese/japanese test wrong at beginning causes error
+
