@@ -129,9 +129,9 @@ while keep_playing:
         else:
             print("Please select either Japanese or Chinese")
 
-    print("You've chosen to play in {}. " +
+    print("You've chosen to play in {}. ".format(quiz_type) +
           "You may answer questions by typing the name or digits of the " +
-          "equivalent english number.\n".format(quiz_type))
+          "equivalent english number.\n")
 
     # Make a shuffled copy of our master number list
     shuffled_numbers = quiz_numbers.copy()
