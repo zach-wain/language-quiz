@@ -110,6 +110,8 @@ while keep_playing:
             keep_playing = False
             print("Goodbye - thanks for playing!")
 
+    # reset score for next game
+    score_counter = 0
 
 
 # bug: score doesnt reset when game is replayed. needs to be fixed in version 3
